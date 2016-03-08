@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="ripple-0.16.5.js"></script>
+  <script>
+    console.log(ripple);
+    var api = new ripple.RippleAPI();
+api.on('error', (errorCode, errorMessage) => {
+  console.log(errorCode + ': ' + errorMessage);
+});
+(function(get_addresses) {
+    return api.generateAddress.then((generate) => {
+      document.body.innerHTML += "<table>" +
+"        <tr><th>Your Public Key</th>" +
+"          <td>" + generate.address + "</td></tr>" +
+"        <tr><th>Your Secret Key</th>" +
+"          <td>" + generate.secret + "</td></tr>" +
+"      </table>";
+});
+})
+  </script>
+  <style type="text/css">
+    td, th { border: 1px solid black; padding: 5px; }
+    table { border-collapse: collapse; }
+  </style>
+</head>
+<body></body>
+</html>
