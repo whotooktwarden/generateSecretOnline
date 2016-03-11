@@ -21,7 +21,10 @@ api.connect().then(() => {
 "          <td>" + generate_address.secret + "</td></tr>" +
 "      </table>";
 /*If you would like to provide a client with an activated account, sign a transaction to send 25 XRP to the generated address
-then submit the payment:
+then submit the payment.  RippleAPI API endpoints required for this functionality include:
+https://ripple.com/build/rippleapi/#preparepayment
+https://ripple.com/build/rippleapi/#sign
+https://ripple.com/build/rippleapi/#submit
 */
 }).then(() => {
   return api.disconnect();
