@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="ripple-0.16.5.js"></script>
+  <script>
+ console.log(ripple);
+var api = new ripple.RippleAPI({server:'wss://s2.ripple.com'});
+
+api.on('error', (errorCode, errorMessage) => {
+  console.log(errorCode + ': ' + errorMessage);
+});
+api.connect().then(() => {
+    return api.generateAddress();
+}).then(function(generate_address) {
+    api.on('error', (errorCode, errorMessage) => { console.log(errorCode + ': ' + errorMessage); });
+    document.body.innerHTML += "<table>" +
+"        <tr><th>Your Public Key</th>" +
+"          <td>" + generate_address.address + "</td></tr>" +
+"        <tr><th>Your Secret Key</th>" +
+"          <td>" + generate_address.secret + "</td></tr>" +
+"      </table>";
+/*If you would like to provide a client with an activated account, sign a transaction to send 25 XRP to the generated address
+then submit the payment.  RippleAPI API endpoints required for this functionality include:
+https://ripple.com/build/rippleapi/#preparepayment
+https://ripple.com/build/rippleapi/#sign
+https://ripple.com/build/rippleapi/#submit
+*/
+}).then(() => {
+  return api.disconnect();
+}).catch(console.error);
+
+  </script>
+  <style type="text/css">
+    td, th { border: 1px solid black; padding: 5px; }
+    table { border-collapse: collapse; }
+  </style>
+</head>
+<body>
+<h2>Generating New Account</h2>
+<p>Record your public key within a file on your computer.</p><p>Record your secret key offline an never commit it to any device's hard drive unencrypted!</p>
+</body>
+</html>
